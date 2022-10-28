@@ -29,14 +29,14 @@ class Modifier
      *
      * @var string
      */
-    protected $markup = null;
+    protected $markup = '';
 
     /**
      * Class that this modifier extends from
      *
      * @var string
      */
-    protected $extendedClass = null;
+    protected $extendedClass = '';
 
     /**
      * Creates a new modifier by adding a name and a description
@@ -121,7 +121,7 @@ class Modifier
      */
     protected function parseExtend($name)
     {
-        $this->setExtendedClass(null);
+        $this->setExtendedClass('');
 
         $nameParts = explode('@extend', $name);
         $name = trim($nameParts[0]);
@@ -161,7 +161,7 @@ class Modifier
     public function setExtendedClass($class)
     {
         if (empty($class)) {
-            $this->extenderClass = null;
+            $this->extenderClass = '';
             return;
         }
 
@@ -175,7 +175,7 @@ class Modifier
      */
     public function getExtendedClassName()
     {
-        if ($this->getExtendedClass() === null) {
+        if (empty($this->getExtendedClass())) {
             return '';
         }
 
@@ -208,7 +208,7 @@ class Modifier
     public function getExampleHtml($html = null)
     {
         if ($html === null) {
-            if ($this->getMarkup() === null) {
+            if (empty($this->getMarkup())) {
                 return '';
             }
             $html = $this->getMarkup();

@@ -19,7 +19,7 @@ class Parser
      *
      * @var array
      */
-    protected $sections = array();
+    protected $sections = [];
 
     /**
      * A flag on whether sections have been sorted
@@ -109,7 +109,7 @@ class Parser
     public function getTopLevelSections()
     {
         $this->sortSectionsByDepth();
-        $topLevelSections = array();
+        $topLevelSections = [];
 
         foreach ($this->sections as $section) {
             if ($section->getDepth() != 0) {
@@ -135,7 +135,7 @@ class Parser
         $this->sortSections();
 
         $sectionKeys = array_keys($this->sections);
-        $sections = array();
+        $sections = [];
 
         $maxDepth = null;
         if ($levelsDown !== null) {

@@ -23,7 +23,7 @@ class Section
      *
      * @var array
      */
-    protected $commentSections = array();
+    protected $commentSections = [];
 
     /**
      * The file where the KSS Comment Block came from
@@ -37,42 +37,42 @@ class Section
      *
      * @var string
      */
-    protected $markup = null;
+    protected $markup = '';
 
     /**
      * The deprecation notice in the KSS Block
      *
      * @var string
      */
-    protected $deprecated = null;
+    protected $deprecated = '';
 
     /**
      * The experimental notice in the KSS Block
      *
      * @var string
      */
-    protected $experimental = null;
+    protected $experimental = '';
 
     /**
      * The compatibility informations
      *
      * @var string
      */
-    protected $compatibility = null;
+    protected $compatibility = '';
 
     /**
      * The section reference identifier
      *
      * @var string
      */
-    protected $reference = null;
+    protected $reference = '';
 
     /**
      * The section reference identifier dot delimited
      *
      * @var string
      */
-    protected $referenceDotDelimited = null;
+    protected $referenceDotDelimited = '';
 
     /**
      * Creates a section with the KSS Comment Block and source file
@@ -129,7 +129,7 @@ class Section
      */
     public function getDescription()
     {
-        $descriptionSections = array();
+        $descriptionSections = [];
 
         foreach ($this->getCommentSections() as $commentSection) {
             // Anything that is not the section comment or modifiers comment
@@ -157,7 +157,7 @@ class Section
      */
     public function getMarkup()
     {
-        if ($this->markup === null) {
+        if (empty($this->markup)) {
             if ($markupComment = $this->getMarkupComment()) {
                 $this->markup = trim(preg_replace('/^\s*Markup:/i', '', $markupComment));
             }
@@ -184,7 +184,7 @@ class Section
      */
     public function hasMarkup()
     {
-        return $this->getMarkup() !== null;
+        return $this->getMarkup() !== '';
     }
 
     /**
@@ -194,7 +194,7 @@ class Section
      */
     public function getDeprecated()
     {
-        if ($this->deprecated === null) {
+        if (empty($this->deprecated)) {
             if ($deprecatedComment = $this->getDeprecatedComment()) {
                 $this->deprecated = trim(preg_replace('/^\s*Deprecated:/i', '', $deprecatedComment));
             }
@@ -210,7 +210,7 @@ class Section
      */
     public function getExperimental()
     {
-        if ($this->experimental === null) {
+        if (empty($this->experimental)) {
             if ($experimentalComment = $this->getExperimentalComment()) {
                 $this->experimental = trim(preg_replace('/^\s*Experimental:/i', '', $experimentalComment));
             }
@@ -226,7 +226,7 @@ class Section
      */
     public function getCompatibility()
     {
-        if ($this->compatibility === null) {
+        if (empty($this->compatibility)) {
             if ($compatibilityComment = $this->getCompatibilityComment()) {
                 $this->compatibility = trim($compatibilityComment);
             }
@@ -243,7 +243,7 @@ class Section
     public function getModifiers()
     {
         $lastIndent = null;
-        $modifiers = array();
+        $modifiers = [];
 
         if ($modiferComment = $this->getModifiersComment()) {
             $modifierLines = explode("\n", $modiferComment);
@@ -289,7 +289,7 @@ class Section
     public function getParameters()
     {
         $lastIndent = null;
-        $parameters = array();
+        $parameters = [];
 
         if ($parameterComment = $this->getParametersComment()) {
             $parameterLines = explode("\n", $parameterComment);
@@ -336,7 +336,7 @@ class Section
      */
     public function getReference($trimmed = false)
     {
-        if ($this->reference === null) {
+        if (empty($this->reference)) {
             $referenceComment = $this->getReferenceComment();
             $referenceComment = preg_replace('/\.$/', '', $referenceComment);
 
@@ -345,7 +345,7 @@ class Section
             }
         }
 
-        return ($trimmed && $this->reference !== null)
+        return ($trimmed && $this->reference !== '')
             ? self::trimReference($this->reference)
             : $this->reference;
     }
@@ -370,7 +370,7 @@ class Section
      */
     public function hasReference()
     {
-        return $this->getReference() !== null;
+        return $this->getReference() !== '';
     }
 
     /**
@@ -572,7 +572,7 @@ class Section
      */
     protected function getTitleComment()
     {
-        $titleComment = null;
+        $titleComment = '';
 
         foreach ($this->getCommentSections() as $commentSection) {
             // Identify the title by the # markdown header syntax
@@ -592,7 +592,7 @@ class Section
      */
     protected function getMarkupComment()
     {
-        $markupComment = null;
+        $markupComment = '';
 
         foreach ($this->getCommentSections() as $commentSection) {
             // Identify the markup comment by the Markup: marker
@@ -613,7 +613,7 @@ class Section
      */
     protected function getDeprecatedComment()
     {
-        $deprecatedComment = null;
+        $deprecatedComment = '';
 
         foreach ($this->getCommentSections() as $commentSection) {
             // Identify the deprecation notice by the Deprecated: marker
@@ -634,7 +634,7 @@ class Section
      */
     protected function getExperimentalComment()
     {
-        $experimentalComment = null;
+        $experimentalComment = '';
 
         foreach ($this->getCommentSections() as $commentSection) {
             // Identify the experimental notice by the Experimental: marker
@@ -655,7 +655,7 @@ class Section
      */
     protected function getCompatibilityComment()
     {
-        $compatibilityComment = null;
+        $compatibilityComment = '';
 
         foreach ($this->getCommentSections() as $commentSection) {
             // Compatible in IE6+, Firefox 2+, Safari 4+.
@@ -677,7 +677,7 @@ class Section
      */
     protected function getReferenceComment()
     {
-        $referenceComment = null;
+        $referenceComment = '';
         $commentSections = $this->getCommentSections();
         $lastLine = end($commentSections);
 
@@ -697,7 +697,7 @@ class Section
      */
     protected function getModifiersComment()
     {
-        $modifiersComment = null;
+        $modifiersComment = '';
 
         foreach ($this->getCommentSections() as $commentSection) {
             // Assume that the modifiers section starts with either a class or a
@@ -718,7 +718,7 @@ class Section
      */
     protected function getParametersComment()
     {
-        $parametersComment = null;
+        $parametersComment = '';
 
         foreach ($this->getCommentSections() as $commentSection) {
             // Assume that the parameters section starts with $,%,@
