@@ -23,14 +23,14 @@ class CommentParser
      *
      * @var array
      */
-    protected $options = array();
+    protected $options = [];
 
     /**
      * Storage for comment blocks
      *
      * @var array
      */
-    protected $blocks = array();
+    protected $blocks = [];
 
     /**
      * Flag for whether the file has been parsed for comments yet
@@ -45,7 +45,7 @@ class CommentParser
      * @param \SplFileObject $file
      * @param array $options
      */
-    public function __construct(\SplFileObject $file, array $options = array())
+    public function __construct(\SplFileObject $file, array $options = [])
     {
         $this->file = $file;
         $this->options = $options;
@@ -72,7 +72,7 @@ class CommentParser
      */
     protected function parseBlocks()
     {
-        $this->blocks = array();
+        $this->blocks = [];
         $currentBlock = '';
         // Do we need insideSingleLineBlock? It doesn't seem to be used anywhere
         // Original Ruby version of KSS had it but I'm not seeing a purpose to it
@@ -144,7 +144,7 @@ class CommentParser
 
         $indentSize = null;
         $blockLines = explode("\n", $normalizedBlock);
-        $normalizedLines = array();
+        $normalizedLines = [];
         foreach ($blockLines as $line) {
             preg_match('/^\s*/', $line, $matches);
             $precedingWhitespace = strlen($matches[0]);
