@@ -39,6 +39,11 @@ class Modifier
     protected $extendedClass = '';
 
     /**
+     * @var string
+     */
+    protected $extenderClass = '';
+
+    /**
      * Creates a new modifier by adding a name and a description
      *
      * @param string $name
